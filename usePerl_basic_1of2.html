@@ -61,7 +61,7 @@
 <section class="slide level2">
 
 <h3 id="버전과-위치">버전과 위치</h3>
-<pre><code>$ perl -v
+<pre class="bash"><code>$ perl -v
 
 This is perl, v5.8.8 built for i386-linux-thread-multi
 
@@ -167,7 +167,7 @@ while( $line = &lt;STDIN&gt; ) # 줄단위의 데이터가 들어올 때까지 B
 <section class="slide level2">
 
 <p>Output : 키보드 입력</p>
-<pre><code>$ perl stdin.pl
+<pre class="bash"><code>$ perl stdin.pl
 (대기중... 아래글을 입력)
 HELLO
 &gt;&gt; HELLO
@@ -182,7 +182,7 @@ $ </code></pre>
 <section class="slide level2">
 
 <p>Output : 파이프 입력</p>
-<pre><code>$ echo &quot;hello there&quot; | perl stdin.pl
+<pre class="bash"><code>$ echo &quot;hello there&quot; | perl stdin.pl
 &gt;&gt; hello there
 $</code></pre>
 <ul>
@@ -213,7 +213,7 @@ print STDERR &quot;Hello STDERR\n&quot;</code></pre>
 <section class="slide level2">
 
 <p>Output : 화면출력</p>
-<pre><code>$ perl stdout.pl
+<pre class="bash"><code>$ perl stdout.pl
 Hello STDOUT
 Hello STDOUT
 Hello STDERR
@@ -225,7 +225,7 @@ $ </code></pre>
 <section class="slide level2">
 
 <p>Output : 출력 리디렉션 1</p>
-<pre><code>$ perl stdout.pl &gt; output.txt
+<pre class="bash"><code>$ perl stdout.pl &gt; output.txt
 Hello STDERR
 
 $ cat output.txt
@@ -238,7 +238,7 @@ Hello STDOUT</code></pre>
 <section class="slide level2">
 
 <p>Output : 출력 리디렉션 2</p>
-<pre><code>$ perl stdout.pl 1&gt;output.txt 2&gt;error.txt
+<pre class="bash"><code>$ perl stdout.pl 1&gt;output.txt 2&gt;error.txt
 
 $ cat output.txt
 Hello STDOUT
@@ -254,7 +254,7 @@ Hello STDERR</code></pre>
 <section class="slide level2">
 
 <p>Output : 출력 리디렉션 3</p>
-<pre><code>$ perl stdout.pl 2&gt;&amp;1 &gt; output.txt
+<pre class="bash"><code>$ perl stdout.pl 2&gt;&amp;1 &gt; output.txt
 $ cat output.txt
 Hello STDOUT
 Hello STDOUT
@@ -277,13 +277,13 @@ $ </code></pre>
 <section class="slide level2">
 
 <p>글자 출력</p>
-<pre><code>$ perl -e &#39; print &quot;Hello World\n&quot; &#39;
+<pre class="bash"><code>$ perl -e &#39; print &quot;Hello World\n&quot; &#39;
 Hello World</code></pre>
 </section>
 <section class="slide level2">
 
 <p>파이프 입력값처리</p>
-<pre><code>$ ls -l | perl -e &#39;while($line = &lt;STDIN&gt;){ print $line; }&#39;
+<pre class="bash"><code>$ ls -l | perl -e &#39;while($line = &lt;STDIN&gt;){ print $line; }&#39;
 total 8
 drwxr-xr-x  3 sng2c  staff   102  4 12 22:30 stdin
 drwxr-xr-x  3 sng2c  staff   102  4 12 22:30 stdout
@@ -291,7 +291,7 @@ drwxr-xr-x  3 sng2c  staff   102  4 12 22:30 stdout
 </section>
 <section class="slide level2">
 
-<pre><code>$ ls -l | perl -e &#39;while(&lt;&gt;){ print $_; }&#39;
+<pre class="bash"><code>$ ls -l | perl -e &#39;while(&lt;&gt;){ print $_; }&#39;
 total 8
 drwxr-xr-x  3 sng2c  staff   102  4 12 22:30 stdin
 drwxr-xr-x  3 sng2c  staff   102  4 12 22:30 stdout
@@ -302,7 +302,7 @@ drwxr-xr-x  3 sng2c  staff   102  4 12 22:30 stdout
 </section>
 <section class="slide level2">
 
-<pre><code>$ ls -l | perl -ne &#39;print $_;&#39;
+<pre class="bash"><code>$ ls -l | perl -ne &#39;print $_;&#39;
 total 8
 drwxr-xr-x  3 sng2c  staff   102  4 12 22:30 stdin
 drwxr-xr-x  3 sng2c  staff   102  4 12 22:30 stdout
@@ -347,7 +347,7 @@ while( my $line = &lt;STDIN&gt; ){
 <section class="slide level2">
 
 <p>Output</p>
-<pre><code>$ ls -l .. | perl replace.pl
+<pre class="bash"><code>$ ls -l .. | perl replace.pl
 total 16
 drwxr-xr-x  3 내꺼  staff   102  4 13 01:25 split
 drwxr-xr-x  3 내꺼  staff   102  4 12 22:30 stdin
@@ -390,7 +390,7 @@ while( my $line = &lt;STDIN&gt; ){
 <section class="slide level2">
 
 <p>Output</p>
-<pre><code>$ ls -l ..
+<pre class="bash"><code>$ ls -l ..
 total 16
 drwxr-xr-x  3 sng2c  staff   102  4 13 01:25 split
 drwxr-xr-x  3 sng2c  staff   102  4 12 22:30 stdin
@@ -407,7 +407,7 @@ drwxr-xr-x 3 sng2c
 <section class="slide level2">
 
 <p>One Line</p>
-<pre><code>$ ls -l .. | perl -ane &#39;print &quot;$F[0] $F[1] $F[2]\n&quot;&#39;
+<pre class="bash"><code>$ ls -l .. | perl -ane &#39;print &quot;$F[0] $F[1] $F[2]\n&quot;&#39;
 total 16 
 drwxr-xr-x 3 sng2c
 drwxr-xr-x 3 sng2c
@@ -459,7 +459,7 @@ print color(&#39;blink blue&#39;) . &quot;파란색깜빡\n&quot; . color(&#39;r
 <section class="slide level2">
 
 <p>color_replace.pl</p>
-<pre><code>#!/usr/bin/env perl
+<pre class="perl"><code>#!/usr/bin/env perl
 use strict;
 use Term::ANSIColor;
 
@@ -490,7 +490,7 @@ while( my $line = &lt;STDIN&gt; ){
 <section class="slide level2">
 
 <p>Output</p>
-<pre><code>$ ls -l | perl color_replace.pl
+<pre class="bash"><code>$ ls -l | perl color_replace.pl
 
 ... 칼라풀 출력 결과 ...
 </code></pre>
@@ -498,7 +498,7 @@ while( my $line = &lt;STDIN&gt; ){
 <section class="slide level2">
 
 <p>One Line</p>
-<pre><code>$ ls -l | perl -MTerm::ANSIColor -ne &#39;$bold=color(&quot;bold green&quot;);$reset=color(&quot;reset&quot;);$_ =~ s/(\d+)/$bold$1$reset/g; print $_&#39;
+<pre class="bash"><code>$ ls -l | perl -MTerm::ANSIColor -ne &#39;$bold=color(&quot;bold green&quot;);$reset=color(&quot;reset&quot;);$_ =~ s/(\d+)/$bold$1$reset/g; print $_&#39;
 
 ... 칼라풀 출력 결과 ...
 </code></pre>

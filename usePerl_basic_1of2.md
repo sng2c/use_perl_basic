@@ -19,7 +19,7 @@
 ----
 
 ### 버전과 위치
-```
+```bash
 $ perl -v
 
 This is perl, v5.8.8 built for i386-linux-thread-multi
@@ -107,7 +107,7 @@ while( $line = <STDIN> ) # 줄단위의 데이터가 들어올 때까지 Block �
 
 Output : 키보드 입력
 
-```
+```bash
 $ perl stdin.pl
 (대기중... 아래글을 입력)
 HELLO
@@ -124,7 +124,7 @@ $
 
 Output : 파이프 입력
 
-```
+```bash
 $ echo "hello there" | perl stdin.pl
 >> hello there
 $
@@ -159,7 +159,7 @@ print STDERR "Hello STDERR\n"
 
 Output : 화면출력
 
-```
+```bash
 $ perl stdout.pl
 Hello STDOUT
 Hello STDOUT
@@ -172,7 +172,8 @@ $
 ---
 
 Output : 출력 리디렉션 1
-```
+
+```bash
 $ perl stdout.pl > output.txt
 Hello STDERR
 
@@ -187,7 +188,8 @@ Hello STDOUT
 --- 
 
 Output : 출력 리디렉션 2
-```
+
+```bash
 $ perl stdout.pl 1>output.txt 2>error.txt
 
 $ cat output.txt
@@ -205,7 +207,7 @@ Hello STDERR
 
 Output : 출력 리디렉션 3
 
-```
+```bash
 $ perl stdout.pl 2>&1 > output.txt
 $ cat output.txt
 Hello STDOUT
@@ -229,7 +231,7 @@ $
 
 글자 출력
 
-```
+```bash
 $ perl -e ' print "Hello World\n" '
 Hello World
 ```
@@ -238,7 +240,7 @@ Hello World
 
 파이프 입력값처리
 
-```
+```bash
 $ ls -l | perl -e 'while($line = <STDIN>){ print $line; }'
 total 8
 drwxr-xr-x  3 sng2c  staff   102  4 12 22:30 stdin
@@ -248,7 +250,7 @@ drwxr-xr-x  3 sng2c  staff   102  4 12 22:30 stdout
 
 ----
 
-```
+```bash
 $ ls -l | perl -e 'while(<>){ print $_; }'
 total 8
 drwxr-xr-x  3 sng2c  staff   102  4 12 22:30 stdin
@@ -260,7 +262,7 @@ drwxr-xr-x  3 sng2c  staff   102  4 12 22:30 stdout
 
 ----
 
-```
+```bash
 $ ls -l | perl -ne 'print $_;'
 total 8
 drwxr-xr-x  3 sng2c  staff   102  4 12 22:30 stdin
@@ -304,7 +306,7 @@ while( my $line = <STDIN> ){
 
 Output
 
-```
+```bash
 $ ls -l .. | perl replace.pl
 total 16
 drwxr-xr-x  3 내꺼  staff   102  4 13 01:25 split
@@ -353,7 +355,7 @@ while( my $line = <STDIN> ){
 
 Output
 
-```
+```bash
 $ ls -l ..
 total 16
 drwxr-xr-x  3 sng2c  staff   102  4 13 01:25 split
@@ -373,7 +375,7 @@ drwxr-xr-x 3 sng2c
 
 One Line
 
-```
+```bash
 $ ls -l .. | perl -ane 'print "$F[0] $F[1] $F[2]\n"'
 total 16 
 drwxr-xr-x 3 sng2c
@@ -426,7 +428,7 @@ print color('blink blue') . "파란색깜빡\n" . color('reset');
 
 color_replace.pl
 
-```
+```perl
 #!/usr/bin/env perl
 use strict;
 use Term::ANSIColor;
@@ -453,7 +455,7 @@ while( my $line = <STDIN> ){
 
 Output
 
-```
+```bash
 $ ls -l | perl color_replace.pl
 
 ... 칼라풀 출력 결과 ...
@@ -464,7 +466,7 @@ $ ls -l | perl color_replace.pl
 
 One Line
 
-```
+```bash
 $ ls -l | perl -MTerm::ANSIColor -ne '$bold=color("bold green");$reset=color("reset");$_ =~ s/(\d+)/$bold$1$reset/g; print $_'
 
 ... 칼라풀 출력 결과 ...
