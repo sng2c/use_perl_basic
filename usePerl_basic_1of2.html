@@ -607,7 +607,6 @@ while( &lt;$out&gt; ){
 use strict;
 use IO::Pipe;
 use IO::Select;
-
 my $sel = IO::Select-&gt;new;
 
 my $out1 = IO::Pipe-&gt;new;
@@ -619,7 +618,7 @@ $out2-&gt;reader(&#39;ls -l &#39;);
 $sel-&gt;add($out2);
 
 my @ready;
-while( @ready = $sel-&gt;can_read() ){
+while( @ready = $sel-&gt;can_read() ){ # IO Multiplexing
     foreach my $pipe (@ready){
         my $line = &lt;$pipe&gt;;
         unless( defined($line) ){

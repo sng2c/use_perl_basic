@@ -592,7 +592,6 @@ io_multi.pl
 use strict;
 use IO::Pipe;
 use IO::Select;
-
 my $sel = IO::Select->new;
 
 my $out1 = IO::Pipe->new;
@@ -604,7 +603,7 @@ $out2->reader('ls -l ');
 $sel->add($out2);
 
 my @ready;
-while( @ready = $sel->can_read() ){
+while( @ready = $sel->can_read() ){ # IO Multiplexing
     foreach my $pipe (@ready){
         my $line = <$pipe>;
         unless( defined($line) ){
