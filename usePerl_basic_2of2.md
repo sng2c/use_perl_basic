@@ -191,6 +191,8 @@ rename($before_path , $after_path);
 
 * 인코딩은 잘못되더라도 인코딩/디코딩 과정만 짝이 맞으면 눈치채기 어렵다.
 
+----
+
 ### 인코딩 FAIL 사례
 
 * 설정 
@@ -204,6 +206,8 @@ rename($before_path , $after_path);
     1. 개발자는 로컬 로그에서는 한글이 잘보이지만 서버에서는 깨져보인다.
     1. 사용자의 글이 깨지거나 템플릿의 글자가 깨지거나 둘중 하나.
     1. 사용자의 글은 잘 나오는데, SQL 쿼리 결과는 깨진다.
+
+----
 
 #### 한글 인코딩은 예민하다.
 
@@ -371,6 +375,12 @@ use lib './lib';
 use Config::Properties;
 use Data::Dumper;
 
+* use lib './lib';
+    * lib 디렉토리를 라이브러리 패스로 지정한다.
+    * Config::Properties 모듈의 경로는 "./lib/Config/Properties.pm" 이다.
+
+----
+
 #read
 my $props = Config::Properties->new(file=>'props.properties');
 my %all = $props->properties; # 전체 
@@ -382,6 +392,9 @@ print $name."\n";
 print $message."\n";
 ```
 
+* %all : 드디어 해시 자료형이 등장
+* print Dumper \%all; : Dumper(\%all) 과 같다. \를 변수앞에 붙이면 좀 더 구조화된 모양으로 보인다.
+* \를 변수 앞에 붙이면 해당 변수의 레퍼런스(주소)를 의미한다.
 ----
 
 ```perl
@@ -394,9 +407,8 @@ $props2->store($fh);
 close($fh);
 ```
 
-* use lib './lib';
-    * lib 디렉토리를 라이브러리 패스로 지정한다. Config::Properties 모듈이 그 안에 있다.
-
+* FILE 과 같은 파일핸들 형태가 아닌 스칼라변수 $fh 에 할당했다.
+* 같은 의미이지만, 특정 상황에서는 스칼라변수 형태가 편리하다.
 
 ----
 
@@ -424,7 +436,14 @@ json.pl
 use strict;
 use lib './lib';
 use JSON::PP;
+```
 
+* JSON::PP 모듈의 경로는 "./lib/JSON/PP.pm" 이다.
+* PP는 관례적으로 PurePerl 즉 Perl코드로만 되어 있고, 다른 모듈에 의존성이 없는 모듈에 붙인다.
+
+----
+
+```
 #read 
 open( my $fh, '<', 'json.json' );
 my @json_lines = <$fh>;
@@ -445,14 +464,16 @@ print $fh2 encode_json( $obj2 );
 close($fh2);
 ```
 
-* encode_json, decode_json 에 사용되는 변수는 모두 Scalar인데,
-* 내부에 배열의 참조(Reference)가 들어있다.
-* 그래서 $obj{my} 와 같이 쓰지 않고,
-* $obj->{my} 와 같이 한번 더 거쳐서 사용하는 듯한 문법을 이용하여 구분한다.
+* {} 는 해시를 하나 만들고 그 해시의 레퍼런스를 리턴한다.
+* encode_json, decode_json 에 사용되는 인자는 레퍼런스이다.
+* 레퍼런스의 값에 접근할 때는 $obj{my} 와 같이 쓰지 않고,
+* $obj->{my} 와 같이 -> 를 사용하여 접근한다.
 
 ----
 
 ### 디렉토리 탐색
+
+* 디렉토리내의 파일들을 다룰 때
 
 ----
 
@@ -480,19 +501,18 @@ dir_tree.pl
 ```perl
 #!/usr/bin/env perl
 use strict;
-
-my $path = '../../*';
-my @files = glob $path;
-
+my $path = 'subdir/*'; 
+my @files = glob $path;            # $path 내의 파일 목록을 얻는다.
 my @stack;
-push(@stack,@files);
-while( my $f = shift(@stack) ){
-    if( -d $f ){
-        my @files = glob "$f/*";
+push(@stack,@files);               # 스택에 시작디렉토리의 파일경로를 넣는다.
+while( my $f = shift(@stack) ){    # 큐처럼 하나씩 꺼낸다. pop() 을 사용하면 깊이 우선이 된다.
+    if( -d $f ){                   # 디렉토리이면 그 안의 파일목록을 스택에 넣는다.
+        my @files = glob $f.'/*';
         push(@stack,@files);
-    }   
-
-    print $f."\n"; # 이 부분에서 각 파일을 처리한다.
+    }
+    else{
+        print $f."\n";             # 이 부분에서 각 파일을 처리한다.
+    }
 }
 ```
 
@@ -500,14 +520,51 @@ while( my $f = shift(@stack) ){
 
 ----
 
+Output
+
+```bash
+$ perl dir_tree.pl 
+subdir/A.txt
+subdir/subsub/B.txt
+subdir/subsub/C.txt
+subdir/subsub/subsubsub/D.txt
+```
+
+----
+
 #### 디렉토리 하위 탐색 2
     
+Output
+
 ```bash
-$ find ../.. | perl -ne ' print $_; '
+$ find subdir
+subdir
+subdir/.hidden
+subdir/.hidden/E.txt
+subdir/A.txt
+subdir/subsub
+subdir/subsub/B.txt
+subdir/subsub/C.txt
+subdir/subsub/subsubsub
+subdir/subsub/subsubsub/D.txt
 ```
 
 * 유사하지만 find 는 숨김파일까지도 찾아낸다.
-* 굳이 자료구조 탐색이 필요할까?
+
+----
+
+Output
+
+```bash
+$ find subdir | perl -ne ' chomp($_); if( !-d $_ && $_ !~ /\/\./ ){ print "$_\n"; }'
+subdir/A.txt
+subdir/subsub/B.txt
+subdir/subsub/C.txt
+subdir/subsub/subsubsub/D.txt
+```
+
+* 이제 저 코드를 읽으실 수 있으신가요?
+* 굳이 트리 탐색 구현이 필요할까?
 
 ----
 
