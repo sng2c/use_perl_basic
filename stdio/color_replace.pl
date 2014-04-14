@@ -7,7 +7,7 @@ my $reset = color('reset');
 
 while( my $line = <STDIN> ){
     chomp($line);
-    $line =~ s/(\d+)/$bold$1$reset/g;
+    $line =~ s/(\D+)/$bold$1$reset/g;
     print "$line\n";
 }
 

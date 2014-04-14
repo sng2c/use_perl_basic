@@ -292,7 +292,7 @@ Hello STDERR</code></pre>
 <section class="slide level2">
 
 <p>Output : 출력 리디렉션 3</p>
-<pre class="bash"><code>$ perl stdout.pl 2&gt;&amp;1 &gt; output.txt
+<pre class="bash"><code>$ perl stdout.pl &gt; output.txt 2&gt;&amp;1 
 $ cat output.txt
 Hello STDOUT
 Hello STDOUT
@@ -545,6 +545,7 @@ while( my $line = &lt;STDIN&gt; ){
 <section class="slide level2">
 
 <h4 id="출력내용을-캡쳐할-필요가-없을-때">출력내용을 캡쳐할 필요가 없을 때</h4>
+<p>system.pl</p>
 <pre class="perl"><code>#!/usr/bin/env perl
 use strict;
 system( &#39;ls -l&#39; );</code></pre>
@@ -552,6 +553,7 @@ system( &#39;ls -l&#39; );</code></pre>
 <section class="slide level2">
 
 <h4 id="출력내용을-캡쳐할-때">출력내용을 캡쳐할 때</h4>
+<p>backtick.pl</p>
 <pre class="perl"><code>#!/usr/bin/env perl
 use strict;
 my $output = `ls -l`; # `(backtick) 으로 감싼다.
@@ -560,10 +562,73 @@ print $output.&quot;\n&quot;;</code></pre>
 <section class="slide level2">
 
 <h4 id="다른-프로그램을-실행하며-종료할-때">다른 프로그램을 실행하며 종료할 때</h4>
+<p>exec.pl</p>
 <pre class="perl"><code>#!/usr/bin/env perl
 use strict;
 exec(&#39;ls -l&#39;);
 die &quot;exec FAIL!!!&quot;;</code></pre>
+</section>
+<section class="slide level2">
+
+<h4 id="system-과-exec-의-차이점">system 과 exec 의 차이점</h4>
+<p>system_vs_exec.pl</p>
+<pre class="perl"><code>#!/usr/bin/env perl 
+use strict;
+print &quot;PID : $$\n&quot;;
+print &quot;--system--\n&quot;;
+system(&#39;ps | grep ps&#39;);
+print &quot;--exec  --\n&quot;;
+exec(&#39;ps | grep ps&#39;);</code></pre>
+<ul>
+<li class="fragment roll-in">&quot;sh -c ps | grep ps&quot; 프로세스의 PID를 현재 프로그램의 PID와 비교해 본다.</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h4 id="다른-명령을-실행할때">다른 명령을 실행할때</h4>
+<p>io.pl</p>
+<pre class="perl"><code>#!/usr/bin/env perl 
+
+use strict;
+use IO::Pipe;
+
+my $out = IO::Pipe-&gt;new;
+$out-&gt;reader(&#39;ls -l&#39;);
+
+while( &lt;$out&gt; ){
+    print &quot;&gt;&gt; $_&quot;;
+}</code></pre>
+</section>
+<section class="slide level2">
+
+<h4 id="다른-명령을-복수개-실행할때">다른 명령을 복수개 실행할때</h4>
+<p>io_multi.pl</p>
+<pre class="perl"><code>#!/usr/bin/env perl 
+use strict;
+use IO::Pipe;
+use IO::Select;
+
+my $sel = IO::Select-&gt;new;
+
+my $out1 = IO::Pipe-&gt;new;
+$out1-&gt;reader(&#39;ls -l&#39;);
+$sel-&gt;add($out1);
+
+my $out2 = IO::Pipe-&gt;new;
+$out2-&gt;reader(&#39;ls -l &#39;);
+$sel-&gt;add($out2);
+
+my @ready;
+while( @ready = $sel-&gt;can_read() ){
+    foreach my $pipe (@ready){
+        my $line = &lt;$pipe&gt;;
+        unless( defined($line) ){
+            $sel-&gt;remove($pipe);
+            next;
+        }
+        print &quot;&gt;&gt; $line\n&quot;;
+    }
+}</code></pre>
 </section>
 <section class="slide level2">
 

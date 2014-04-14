@@ -238,7 +238,7 @@ Hello STDERR
 Output : 출력 리디렉션 3
 
 ```bash
-$ perl stdout.pl 2>&1 > output.txt
+$ perl stdout.pl > output.txt 2>&1 
 $ cat output.txt
 Hello STDOUT
 Hello STDOUT
@@ -509,6 +509,8 @@ $ ls -l | perl -MTerm::ANSIColor -ne '$bold=color("bold green");$reset=color("re
 
 #### 출력내용을 캡쳐할 필요가 없을 때
 
+system.pl
+
 ```perl
 #!/usr/bin/env perl
 use strict;
@@ -518,6 +520,8 @@ system( 'ls -l' );
 ----
 
 #### 출력내용을 캡쳐할 때
+
+backtick.pl
 
 ```perl
 #!/usr/bin/env perl
@@ -530,6 +534,8 @@ print $output."\n";
 
 #### 다른 프로그램을 실행하며 종료할 때
 
+exec.pl
+
 ```perl
 #!/usr/bin/env perl
 use strict;
@@ -539,6 +545,78 @@ die "exec FAIL!!!";
 
 ----
 
+#### system 과 exec 의 차이점 
+
+system_vs_exec.pl
+
+```perl
+#!/usr/bin/env perl 
+use strict;
+print "PID : $$\n";
+print "--system--\n";
+system('ps | grep ps');
+print "--exec  --\n";
+exec('ps | grep ps');
+```
+* "sh -c ps | grep ps" 프로세스의 PID를 현재 프로그램의 PID와 비교해 본다.
+
+----
+
+#### 다른 명령을 실행할때 
+
+io.pl
+
+```perl
+#!/usr/bin/env perl 
+
+use strict;
+use IO::Pipe;
+
+my $out = IO::Pipe->new;
+$out->reader('ls -l');
+
+while( <$out> ){
+    print ">> $_";
+}
+```
+
+----
+
+
+#### 다른 명령을 복수개 실행할때 
+
+io_multi.pl
+
+```perl
+#!/usr/bin/env perl 
+use strict;
+use IO::Pipe;
+use IO::Select;
+
+my $sel = IO::Select->new;
+
+my $out1 = IO::Pipe->new;
+$out1->reader('ls -l');
+$sel->add($out1);
+
+my $out2 = IO::Pipe->new;
+$out2->reader('ls -l ');
+$sel->add($out2);
+
+my @ready;
+while( @ready = $sel->can_read() ){
+    foreach my $pipe (@ready){
+        my $line = <$pipe>;
+        unless( defined($line) ){
+            $sel->remove($pipe);
+            next;
+        }
+        print ">> $line\n";
+    }
+}
+```
+
+----
 
 ### 정리
 

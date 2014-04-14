@@ -1,0 +1,3 @@
+Hello STDERR
+Hello STDOUT
+Hello STDOUT

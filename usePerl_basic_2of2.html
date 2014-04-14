@@ -47,7 +47,9 @@
 <h1>Perl 바로쓰기 2/2</h1>
 <ul>
 <li class="fragment roll-in">파일다루기</li>
+<li class="fragment roll-in">인코딩</li>
 <li class="fragment roll-in">설정파일 다루기</li>
+<li class="fragment roll-in">디렉토리 탐색</li>
 <li class="fragment roll-in">HTTP통신</li>
 <li class="fragment roll-in">CGI수정</li>
 <li class="fragment roll-in">Crontab</li>
@@ -184,12 +186,144 @@ $ </code></pre>
 <section class="slide level2">
 
 <h4 id="파일의-삭제">파일의 삭제</h4>
-<pre class="perl"><code>unlink($file);</code></pre>
+<pre class="perl"><code>#!/usr/bin/env perl
+use strict;
+unlink($file);</code></pre>
 </section>
 <section class="slide level2">
 
 <h4 id="파일의-이동-또는-이름변경">파일의 이동 또는 이름변경</h4>
-<pre class="perl"><code>rename($before_path , $after_path);</code></pre>
+<pre class="perl"><code>#!/usr/bin/env perl
+use strict;
+rename($before_path , $after_path);</code></pre>
+</section>
+<section class="slide level2">
+
+<h3 id="인코딩">인코딩</h3>
+<ul>
+<li class="fragment roll-in">인코딩은 잘못되더라도 인코딩/디코딩 과정만 짝이 맞으면 눈치채기 어렵다.</li>
+</ul>
+<h3 id="인코딩-fail-사례">인코딩 FAIL 사례</h3>
+<ul>
+<li class="fragment roll-in">설정
+<ol type="1">
+<li class="fragment roll-in">서비스 페이지 인코딩은 UTF-8</li>
+<li class="fragment roll-in">자바 소스 코드는 EUC-KR</li>
+<li class="fragment roll-in">서버 쉘은 en_US.EUC-KR</li>
+<li class="fragment roll-in">WAS쪽 DAO설정은 EUC-KR</li>
+<li class="fragment roll-in">DB필드는 EUC-KR</li>
+</ol></li>
+<li class="fragment roll-in">결과
+<ol type="1">
+<li class="fragment roll-in">개발자는 로컬 로그에서는 한글이 잘보이지만 서버에서는 깨져보인다.</li>
+<li class="fragment roll-in">사용자의 글이 깨지거나 템플릿의 글자가 깨지거나 둘중 하나.</li>
+<li class="fragment roll-in">사용자의 글은 잘 나오는데, SQL 쿼리 결과는 깨진다.</li>
+</ol></li>
+</ul>
+<h4 id="한글-인코딩은-예민하다.">한글 인코딩은 예민하다.</h4>
+<ol type="1">
+<li class="fragment roll-in">쉘(또는 클라이언트)의 인코딩 설정</li>
+<li class="fragment roll-in">소스파일의 인코딩</li>
+<li class="fragment roll-in">데이터의 인코딩</li>
+</ol>
+</section>
+<section class="slide level2">
+
+<h4 id="인코딩-문제-해결시-먼저-할-것들.">인코딩 문제 해결시 먼저 할 것들.</h4>
+<ol type="1">
+<li class="fragment roll-in">쉘의 인코딩을 정확하게 맞춘다.
+<ul>
+<li class="fragment roll-in">(로컬) 사용하는 터미널의 인코딩을 UTF-8로 설정한다.</li>
+<li class="fragment roll-in">(원격) export LANG=ko_KR.UTF-8 을 쉘에서 반드시 확인한다.</li>
+<li class="fragment roll-in">(원격) telnet대신 ssh를 이용하자.</li>
+<li class="fragment roll-in">(원격) ssh가 안된다면 telnet의 7bit 인코딩 세팅과 제어문자 설정을 제거하자.</li>
+</ul></li>
+<li class="fragment roll-in">소스파일의 인코딩을 통일한다.
+<ul>
+<li class="fragment roll-in">euc-kr 소스파일을 모두 UTF-8로 바꾸자.</li>
+</ul></li>
+<li class="fragment roll-in">데이터의 인코딩
+<ul>
+<li class="fragment roll-in">데이터의 인코딩을 미리 파악하자.</li>
+</ul></li>
+</ol>
+</section>
+<section class="slide level2">
+
+<h4 id="euc-kr-문자열-만들기">euc-kr 문자열 만들기</h4>
+<pre class="bash"><code>$ export LANG=ko_KR.UTF-8
+$ echo &quot;헬로우&quot; | iconv -f UTF-8 -t euc-kr &gt; hello_euckr.txt
+$ vi hello_euckr.txt
+Çï·Î¿ì</code></pre>
+</section>
+<section class="slide level2">
+
+<p>euckr2utf8.pl</p>
+<pre class="perl"><code>#!/usr/bin/env perl
+use strict;
+use Encode;
+my $euckr = &lt;STDIN&gt;;
+my $decoded = Encode::decode(&#39;euc-kr&#39;,$euckr);
+my $utf8 = Encode::encode(&#39;utf8&#39;,$decoded);
+print &quot;$utf8&quot;;</code></pre>
+<pre class="bash"><code>$ cat hello_euckr.txt | perl euckr2tuf8.pl 
+헬로우
+$</code></pre>
+<ul>
+<li class="fragment roll-in">STDIN으로 들어온 글자를 euc-kr로 간주하고 decode 한다.</li>
+<li class="fragment roll-in">그리고 출력전에 decode 된 문자열을 utf8로 인코딩하여 출력한다.</li>
+<li class="fragment roll-in">왜 이렇게 했을까?</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<p>euckr2any.pl</p>
+<pre class="perl"><code>#!/usr/bin/env perl
+use strict;
+use Encode;
+my $euckr = &lt;STDIN&gt;;
+my $decoded = Encode::decode(&#39;euc-kr&#39;,$euckr);
+print &quot;$decoded&quot;;</code></pre>
+<pre class="bash"><code>$ cat hello_euckr.txt | perl euckr2tuf8.pl 
+Wide character in print at euckr2any.pl line 6, &lt;STDIN&gt; line 1.
+헬로우
+$</code></pre>
+<ul>
+<li class="fragment roll-in">Perl은 내부적으로 utf8을 사용하나, 이는 문자열의 처리를 위한 것이다.</li>
+<li class="fragment roll-in">decode 시에 utf8을 타겟으로 변환을 하지만,</li>
+<li class="fragment roll-in">출력시에는 어떤 인코딩 설정을 해주지 않으면 경고를 준다.</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<p>euckr2utf8_auto.pl</p>
+<pre class="perl"><code>#!/usr/bin/env perl
+use strict;
+use Encode;
+
+binmode(STDOUT,&quot;:utf8&quot;);
+
+my $euckr = &lt;STDIN&gt;;
+my $decoded = Encode::decode(&#39;euc-kr&#39;,$euckr);
+print &quot;$decoded&quot;;</code></pre>
+<pre class="bash"><code>$ cat hello_euckr.txt | perl euckr2tuf8.pl 
+헬로우
+$</code></pre>
+<ul>
+<li class="fragment roll-in">binmode(STDOUT,&quot;:utf8&quot;);</li>
+<li class="fragment roll-in">을 해주면 STDOUT 파일 핸들에 print 할때는 알아서 인코딩을 한다.</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h4 id="기억해두자">기억해두자</h4>
+<ol type="1">
+<li class="fragment roll-in">원본데이터 읽음</li>
+<li class="fragment roll-in">decode로 원본데이터의 인코딩으로 부터 변환</li>
+<li class="fragment roll-in">변환된 데이터로 가공</li>
+<li class="fragment roll-in">encode로 출력 대상의 형태로 변경</li>
+<li class="fragment roll-in">출력 대상에 전송</li>
+</ol>
 </section>
 <section class="slide level2">
 

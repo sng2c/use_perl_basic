@@ -5,7 +5,9 @@
 ## Perl 바로쓰기 2/2
 
 * 파일다루기
+* 인코딩
 * 설정파일 다루기
+* 디렉토리 탐색
 * HTTP통신 
 * CGI수정
 * Crontab
@@ -168,6 +170,8 @@ $
 #### 파일의 삭제
 
 ```perl
+#!/usr/bin/env perl
+use strict;
 unlink($file);
 ```
 
@@ -176,8 +180,144 @@ unlink($file);
 #### 파일의 이동 또는 이름변경
 
 ```perl
+#!/usr/bin/env perl
+use strict;
 rename($before_path , $after_path);
 ```
+
+----
+
+### 인코딩
+
+* 인코딩은 잘못되더라도 인코딩/디코딩 과정만 짝이 맞으면 눈치채기 어렵다.
+
+### 인코딩 FAIL 사례
+
+* 설정 
+    1. 서비스 페이지 인코딩은 UTF-8
+    1. 자바 소스 코드는 EUC-KR
+    1. 서버 쉘은 en_US.EUC-KR 
+    1. WAS쪽 DAO설정은 EUC-KR
+    1. DB필드는 EUC-KR
+
+* 결과
+    1. 개발자는 로컬 로그에서는 한글이 잘보이지만 서버에서는 깨져보인다.
+    1. 사용자의 글이 깨지거나 템플릿의 글자가 깨지거나 둘중 하나.
+    1. 사용자의 글은 잘 나오는데, SQL 쿼리 결과는 깨진다.
+
+#### 한글 인코딩은 예민하다.
+
+1. 쉘(또는 클라이언트)의 인코딩 설정
+1. 소스파일의 인코딩
+1. 데이터의 인코딩
+
+----
+
+#### 인코딩 문제 해결시 먼저 할 것들.
+
+1. 쉘의 인코딩을 정확하게 맞춘다.
+    * (로컬) 사용하는 터미널의 인코딩을 UTF-8로 설정한다.
+    * (원격) export LANG=ko_KR.UTF-8 을 쉘에서 반드시 확인한다.
+    * (원격) telnet대신 ssh를 이용하자.
+    * (원격) ssh가 안된다면 telnet의 7bit 인코딩 세팅과 제어문자 설정을 제거하자.
+1. 소스파일의 인코딩을 통일한다.
+    * euc-kr 소스파일을 모두 UTF-8로 바꾸자.
+1. 데이터의 인코딩
+    * 데이터의 인코딩을 미리 파악하자.
+
+----
+
+#### euc-kr 문자열 만들기
+
+```bash
+$ export LANG=ko_KR.UTF-8
+$ echo "헬로우" | iconv -f UTF-8 -t euc-kr > hello_euckr.txt
+$ vi hello_euckr.txt
+Çï·Î¿ì
+```
+
+----
+
+euckr2utf8.pl
+
+```perl
+#!/usr/bin/env perl
+use strict;
+use Encode;
+my $euckr = <STDIN>;
+my $decoded = Encode::decode('euc-kr',$euckr);
+my $utf8 = Encode::encode('utf8',$decoded);
+print "$utf8";
+```
+
+```bash
+$ cat hello_euckr.txt | perl euckr2tuf8.pl 
+헬로우
+$
+```
+
+* STDIN으로 들어온 글자를 euc-kr로 간주하고 decode 한다.
+* 그리고 출력전에 decode 된 문자열을 utf8로 인코딩하여 출력한다.
+* 왜 이렇게 했을까?
+
+----
+
+euckr2any.pl
+
+```perl
+#!/usr/bin/env perl
+use strict;
+use Encode;
+my $euckr = <STDIN>;
+my $decoded = Encode::decode('euc-kr',$euckr);
+print "$decoded";
+```
+
+```bash
+$ cat hello_euckr.txt | perl euckr2tuf8.pl 
+Wide character in print at euckr2any.pl line 6, <STDIN> line 1.
+헬로우
+$
+```
+
+* Perl은 내부적으로 utf8을 사용하나, 이는 문자열의 처리를 위한 것이다.
+* decode 시에 utf8을 타겟으로 변환을 하지만,
+* 출력시에는 어떤 인코딩 설정을 해주지 않으면 경고를 준다.
+
+----
+
+euckr2utf8_auto.pl
+
+```perl
+#!/usr/bin/env perl
+use strict;
+use Encode;
+
+binmode(STDOUT,":utf8");
+
+my $euckr = <STDIN>;
+my $decoded = Encode::decode('euc-kr',$euckr);
+print "$decoded";
+```
+
+```bash
+$ cat hello_euckr.txt | perl euckr2tuf8.pl 
+헬로우
+$
+```
+
+* binmode(STDOUT,":utf8");
+* 을 해주면 STDOUT 파일 핸들에 print 할때는 알아서 인코딩을 한다.
+
+----
+
+#### 기억해두자 
+
+1. 원본데이터 읽음
+1. decode로 원본데이터의 인코딩으로 부터 변환
+1. 변환된 데이터로 가공
+1. encode로 출력 대상의 형태로 변경
+1. 출력 대상에 전송
 
 
 ----
