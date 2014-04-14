@@ -76,9 +76,9 @@ $
 
 ### 파이프
 
-* IPC(Inter Process Communication) 의 한 방법인 파이프 통신은,
-* 한 프로그램의 출력을 다른 프로그램의 입력으로 연결함으로써
-* 작은 여러개의 프로그램을 조합하여 출력결과를 가공하는데 사용된다.
+* IPC(Inter Process Communication)의 방법중 하나
+* 프로그램의 출력을 다른 프로그램의 입력으로 연결함으로써
+* 작은 여러개의 프로그램을 조합하여 출력결과를 가공하는데 사용
 
 ----
 
@@ -391,7 +391,7 @@ drwxr-xr-x 3 sng2c
 #### 원하는 곳 색상넣기
 
 * Perl의 Term::ANSIColor 모듈을 이용하여 컬러풀한 출력을 만들 수 있다. 가독성을 높여 생산성을 올릴 수 있다.
-* 참고 : http://perldoc.perl.org/5.8.8/Term/ANSIColor.html
+* 참고 : [http://perldoc.perl.org/5.8.8/Term/ANSIColor.html](http://perldoc.perl.org/5.8.8/Term/ANSIColor.html)
 
 ----
 

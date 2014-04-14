@@ -46,11 +46,11 @@
 <section id="perl-바로쓰기-12" class="slide level2">
 <h1>Perl 바로쓰기 1/2</h1>
 <ul>
-<li>perl 버전의 확인</li>
-<li>Core 모듈들</li>
-<li>파이프의 사용</li>
-<li>입출력 가공하기</li>
-<li>다른 프로그램 실행하기</li>
+<li class="fragment roll-in">perl 버전의 확인</li>
+<li class="fragment roll-in">Core 모듈들</li>
+<li class="fragment roll-in">파이프의 사용</li>
+<li class="fragment roll-in">입출력 가공하기</li>
+<li class="fragment roll-in">다른 프로그램 실행하기</li>
 </ul>
 </section>
 <section class="slide level2">
@@ -83,11 +83,11 @@ $</code></pre>
 
 <h3 id="core모듈-확인-방법">Core모듈 확인 방법</h3>
 <ul>
-<li><a href="http://perldoc.perl.org/5.8.8/index.html">perl 5.8.8</a></li>
-<li>Core 모듈은 배포 버전에 기본적으로 들어있는 모듈들이다.</li>
-<li>Site 모듈은 직접 make로 빌드하여 설치하거나, cpan/cpanm 등을 이용하여 설치한다.
+<li class="fragment roll-in"><a href="http://perldoc.perl.org/5.8.8/index.html">perl 5.8.8</a></li>
+<li class="fragment roll-in">Core 모듈은 배포 버전에 기본적으로 들어있는 모듈들이다.</li>
+<li class="fragment roll-in">Site 모듈은 직접 make로 빌드하여 설치하거나, cpan/cpanm 등을 이용하여 설치한다.
 <ul>
-<li><a href="https://metacpan.org/">MetaCPAN</a></li>
+<li class="fragment roll-in"><a href="https://metacpan.org/">MetaCPAN</a></li>
 </ul></li>
 </ul>
 </section>
@@ -95,41 +95,41 @@ $</code></pre>
 
 <h4 id="유용한-코어모듈들">유용한 코어모듈들</h4>
 <ul>
-<li><strong>C</strong>
+<li class="fragment roll-in"><strong>C</strong>
 <ul>
-<li><a href="http://perldoc.perl.org/5.8.8/Carp.html">Carp</a> : 예외를 던졌을때 Stack Trace를 볼수 있다.</li>
-<li><a href="http://perldoc.perl.org/5.8.8/CGI.html">CGI</a> : 기본적인 CGI 모듈</li>
-<li><a href="http://perldoc.perl.org/5.8.8/Cwd.html">Cwd</a> : 현재디렉토리의 경로나 특정 파일의 절대 경로등을 얻을 수 있다.</li>
+<li class="fragment roll-in"><a href="http://perldoc.perl.org/5.8.8/Carp.html">Carp</a> : 예외를 던졌을때 Stack Trace를 볼수 있다.</li>
+<li class="fragment roll-in"><a href="http://perldoc.perl.org/5.8.8/CGI.html">CGI</a> : 기본적인 CGI 모듈</li>
+<li class="fragment roll-in"><a href="http://perldoc.perl.org/5.8.8/Cwd.html">Cwd</a> : 현재디렉토리의 경로나 특정 파일의 절대 경로등을 얻을 수 있다.</li>
 </ul></li>
-<li><strong>D</strong>
+<li class="fragment roll-in"><strong>D</strong>
 <ul>
-<li><a href="http://perldoc.perl.org/5.8.8/Data/Dumper.html">Data::Dumper</a> : 데이터를 덤프해서 볼때 유용하다.</li>
-<li><a href="http://perldoc.perl.org/5.8.8/Digest/MD5.html">Digest::MD5</a> : MD5 해시를 만들어 낸다.</li>
+<li class="fragment roll-in"><a href="http://perldoc.perl.org/5.8.8/Data/Dumper.html">Data::Dumper</a> : 데이터를 덤프해서 볼때 유용하다.</li>
+<li class="fragment roll-in"><a href="http://perldoc.perl.org/5.8.8/Digest/MD5.html">Digest::MD5</a> : MD5 해시를 만들어 낸다.</li>
 </ul></li>
-<li><strong>E</strong>
+<li class="fragment roll-in"><strong>E</strong>
 <ul>
-<li><a href="http://perldoc.perl.org/5.8.8/Encode.html">Encode</a> : 문자열 인코딩을 변경시켜준다.</li>
+<li class="fragment roll-in"><a href="http://perldoc.perl.org/5.8.8/Encode.html">Encode</a> : 문자열 인코딩을 변경시켜준다.</li>
 </ul></li>
 </ul>
 </section>
 <section class="slide level2">
 
 <ul>
-<li><strong>G</strong>
+<li class="fragment roll-in"><strong>G</strong>
 <ul>
-<li><a href="http://perldoc.perl.org/5.8.8/Getopt/Long.html">Getopt::Long</a> : 프로그램이 실행될 때 넣는 커맨드라인 명령들을 편리하게 정의할 수 있게 해준다.</li>
+<li class="fragment roll-in"><a href="http://perldoc.perl.org/5.8.8/Getopt/Long.html">Getopt::Long</a> : 프로그램이 실행될 때 넣는 커맨드라인 명령들을 편리하게 정의할 수 있게 해준다.</li>
 </ul></li>
-<li><strong>I</strong>
+<li class="fragment roll-in"><strong>I</strong>
 <ul>
-<li><a href="http://perldoc.perl.org/5.8.8/IO/Select.html">IO::Select</a> : 2개 이상의 입출력을 동시에 모니터링할때 사용한다.</li>
+<li class="fragment roll-in"><a href="http://perldoc.perl.org/5.8.8/IO/Select.html">IO::Select</a> : 2개 이상의 입출력을 동시에 모니터링할때 사용한다.</li>
 </ul></li>
-<li><strong>M</strong>
+<li class="fragment roll-in"><strong>M</strong>
 <ul>
-<li><a href="http://perldoc.perl.org/5.8.8/MIME/Base64.html">MIME::Base64</a> : Base64 인코딩/디코딩 모듈</li>
+<li class="fragment roll-in"><a href="http://perldoc.perl.org/5.8.8/MIME/Base64.html">MIME::Base64</a> : Base64 인코딩/디코딩 모듈</li>
 </ul></li>
-<li><strong>T</strong>
+<li class="fragment roll-in"><strong>T</strong>
 <ul>
-<li><a href="http://perldoc.perl.org/5.8.8/Term/ANSIColor.html">Term::ANSIColor</a> : 터미널에 컬러값을 출력해준다.</li>
+<li class="fragment roll-in"><a href="http://perldoc.perl.org/5.8.8/Term/ANSIColor.html">Term::ANSIColor</a> : 터미널에 컬러값을 출력해준다.</li>
 </ul></li>
 </ul>
 </section>
@@ -137,18 +137,18 @@ $</code></pre>
 
 <h3 id="파이프">파이프</h3>
 <ul>
-<li>IPC(Inter Process Communication) 의 한 방법인 파이프 통신은,</li>
-<li>한 프로그램의 출력을 다른 프로그램의 입력으로 연결함으로써</li>
-<li>작은 여러개의 프로그램을 조합하여 출력결과를 가공하는데 사용된다.</li>
+<li class="fragment roll-in">IPC(Inter Process Communication)의 방법중 하나</li>
+<li class="fragment roll-in">프로그램의 출력을 다른 프로그램의 입력으로 연결함으로써</li>
+<li class="fragment roll-in">작은 여러개의 프로그램을 조합하여 출력결과를 가공하는데 사용</li>
 </ul>
 </section>
 <section class="slide level2">
 
 <h4 id="파이프로-스트림-받기">파이프로 스트림 받기</h4>
 <ul>
-<li>파이프( <code>|</code> ) 로 데이터를 받는다는 것은 표준입력을 읽는다는 것이다.</li>
-<li>그래서 STDIN 을 읽어서 처리하면 된다.</li>
-<li><파일핸들> 은 줄단위의 데이터가 입력되면, 포함한 문자열이 리턴된다. 단, EOF(End Of File)가 감지되면 undef를 리턴한다.</li>
+<li class="fragment roll-in">파이프( <code>|</code> ) 로 데이터를 받는다는 것은 표준입력을 읽는다는 것이다.</li>
+<li class="fragment roll-in">그래서 STDIN 을 읽어서 처리하면 된다.</li>
+<li class="fragment roll-in"><파일핸들> 은 줄단위의 데이터가 입력되면, 포함한 문자열이 리턴된다. 단, EOF(End Of File)가 감지되면 undef를 리턴한다.</li>
 </ul>
 </section>
 <section class="slide level2">
@@ -174,9 +174,9 @@ HELLO
 ^D
 $ </code></pre>
 <ul>
-<li>표준입력이 PIPE로 주어지지 않는다면, Ctrl+D를 입력하기 전까지는 루프를 무한정 돌게 된다.</li>
-<li>Ctrl+D는 EOF를 의미한다.</li>
-<li>Windows에서는 Ctrl+Z 이다.</li>
+<li class="fragment roll-in">표준입력이 PIPE로 주어지지 않는다면, Ctrl+D를 입력하기 전까지는 루프를 무한정 돌게 된다.</li>
+<li class="fragment roll-in">Ctrl+D는 EOF를 의미한다.</li>
+<li class="fragment roll-in">Windows에서는 Ctrl+Z 이다.</li>
 </ul>
 </section>
 <section class="slide level2">
@@ -186,16 +186,16 @@ $ </code></pre>
 &gt;&gt; hello there
 $</code></pre>
 <ul>
-<li>파이프로 연결되면, 선행하는 명령이 종료될 때, EOF를 감지하게 되어 루프를 종료하게 된다.</li>
+<li class="fragment roll-in">파이프로 연결되면, 선행하는 명령이 종료될 때, EOF를 감지하게 되어 루프를 종료하게 된다.</li>
 </ul>
 </section>
 <section class="slide level2">
 
 <h4 id="파이프로-스트림-내보내기">파이프로 스트림 내보내기</h4>
 <ul>
-<li>파이프로 스트림을 내보내는 것은 STDOUT으로 출력한다는 의미이다. 그래서 print 또는 print STDOUT 을 이용한다.</li>
-<li>STDERR을 이용해도 화면에 출력할 수 있다.</li>
-<li>보통 스크립트는 파일에 바로 쓰는 것보다는 STDOUT으로 출력하도록 만드는 것이 간편하다.</li>
+<li class="fragment roll-in">파이프로 스트림을 내보내는 것은 STDOUT으로 출력한다는 의미이다. 그래서 print 또는 print STDOUT 을 이용한다.</li>
+<li class="fragment roll-in">STDERR을 이용해도 화면에 출력할 수 있다.</li>
+<li class="fragment roll-in">보통 스크립트는 파일에 바로 쓰는 것보다는 STDOUT으로 출력하도록 만드는 것이 간편하다.</li>
 </ul>
 </section>
 <section class="slide level2">
@@ -219,7 +219,7 @@ Hello STDOUT
 Hello STDERR
 $ </code></pre>
 <ul>
-<li>화면상에는 셋 다 출력 된다.</li>
+<li class="fragment roll-in">화면상에는 셋 다 출력 된다.</li>
 </ul>
 </section>
 <section class="slide level2">
@@ -232,7 +232,7 @@ $ cat output.txt
 Hello STDOUT
 Hello STDOUT</code></pre>
 <ul>
-<li><code>&gt;</code> 로 출력을 파일로 돌려보면 STDERR로 출력한 것만 여전히 화면으로 나온다.</li>
+<li class="fragment roll-in"><code>&gt;</code> 로 출력을 파일로 돌려보면 STDERR로 출력한 것만 여전히 화면으로 나온다.</li>
 </ul>
 </section>
 <section class="slide level2">
@@ -247,8 +247,8 @@ Hello STDOUT
 $ cat error.txt
 Hello STDERR</code></pre>
 <ul>
-<li><code>1&gt;</code> 은 STDOUT,</li>
-<li><code>2&gt;</code> 은 STDERR 을 의미하고 각각 다른 파일로 보낼수 있다.</li>
+<li class="fragment roll-in"><code>1&gt;</code> 은 STDOUT,</li>
+<li class="fragment roll-in"><code>2&gt;</code> 은 STDERR 을 의미하고 각각 다른 파일로 보낼수 있다.</li>
 </ul>
 </section>
 <section class="slide level2">
@@ -261,17 +261,17 @@ Hello STDOUT
 Hello STDERR
 $ </code></pre>
 <ul>
-<li><code>2&gt;&amp;1</code> 과 같이 하면 STDERR 출력이 STDOUT으로 취급된다.</li>
+<li class="fragment roll-in"><code>2&gt;&amp;1</code> 과 같이 하면 STDERR 출력이 STDOUT으로 취급된다.</li>
 </ul>
 </section>
 <section class="slide level2">
 
 <h4 id="한줄로-코딩하기">한줄로 코딩하기</h4>
 <ul>
-<li>서버 작업에서는 한번 쓰고 버리는 스크립트를 작성하는 경우가 자주 있다.</li>
-<li>파이프로 받은 값을 임시로 처리하는 경우에 자주 사용하게 된다.</li>
-<li>스크립트 파일을 만들지 않고 한줄에 스크립트를 짜보자. 이를 원-라이너(One-liner) 라고 부르기도 한다.</li>
-<li>Bash에 의해서 $var 등이 해석되지 않게 <code>'</code>(작은따옴표)로 감싸자.</li>
+<li class="fragment roll-in">서버 작업에서는 한번 쓰고 버리는 스크립트를 작성하는 경우가 자주 있다.</li>
+<li class="fragment roll-in">파이프로 받은 값을 임시로 처리하는 경우에 자주 사용하게 된다.</li>
+<li class="fragment roll-in">스크립트 파일을 만들지 않고 한줄에 스크립트를 짜보자. 이를 원-라이너(One-liner) 라고 부르기도 한다.</li>
+<li class="fragment roll-in">Bash에 의해서 $var 등이 해석되지 않게 <code>'</code>(작은따옴표)로 감싸자.</li>
 </ul>
 </section>
 <section class="slide level2">
@@ -297,7 +297,7 @@ drwxr-xr-x  3 sng2c  staff   102  4 12 22:30 stdin
 drwxr-xr-x  3 sng2c  staff   102  4 12 22:30 stdout
 -rw-r--r--@ 1 sng2c  staff  2840  4 12 16:07 usePerl_basic.md</code></pre>
 <ul>
-<li>while(&lt;&gt;)은 while( $_ = <STDIN> ) 의 축약형이다.</li>
+<li class="fragment roll-in">while(&lt;&gt;)은 while( $_ = <STDIN> ) 의 축약형이다.</li>
 </ul>
 </section>
 <section class="slide level2">
@@ -308,14 +308,14 @@ drwxr-xr-x  3 sng2c  staff   102  4 12 22:30 stdin
 drwxr-xr-x  3 sng2c  staff   102  4 12 22:30 stdout
 -rw-r--r--@ 1 sng2c  staff  2840  4 12 16:07 usePerl_basic.md</code></pre>
 <ul>
-<li>-ne 옵션을 사용하면 while(&lt;&gt;){ ... } 을 자동으로 감싸준다.</li>
+<li class="fragment roll-in">-ne 옵션을 사용하면 while(&lt;&gt;){ ... } 을 자동으로 감싸준다.</li>
 </ul>
 </section>
 <section class="slide level2">
 
 <h3 id="입출력결과-다듬기">입출력결과 다듬기</h3>
 <ul>
-<li>가독성을 높이기 위해서 스크립팅을 통해 입력결과를 가공하여 출력해보자</li>
+<li class="fragment roll-in">가독성을 높이기 위해서 스크립팅을 통해 입력결과를 가공하여 출력해보자</li>
 </ul>
 </section>
 <section class="slide level2">
@@ -331,15 +331,15 @@ while( my $line = &lt;STDIN&gt; ){
     print $line . &quot;\n&quot;;
 }</code></pre>
 <ul>
-<li><span class="math">$line =~ s/패턴/대체문자열/g; : `$</span>line<code>에서</code>패턴<code>을 찾아</code>대체문자열<code>로</code>모두(g)<code>`바꿔침( =~ s/// )</code>.
+<li class="fragment roll-in"><span class="math">$line =~ s/패턴/대체문자열/g; : `$</span>line<code>에서</code>패턴<code>을 찾아</code>대체문자열<code>로</code>모두(g)<code>`바꿔침( =~ s/// )</code>.
 <ul>
-<li>패턴
+<li class="fragment roll-in">패턴
 <ul>
-<li>그냥 문자열 &quot;sng2c&quot;</li>
+<li class="fragment roll-in">그냥 문자열 &quot;sng2c&quot;</li>
 </ul></li>
-<li>대체문자열
+<li class="fragment roll-in">대체문자열
 <ul>
-<li>&quot;내꺼&quot;</li>
+<li class="fragment roll-in">&quot;내꺼&quot;</li>
 </ul></li>
 </ul></li>
 </ul>
@@ -359,8 +359,8 @@ $</code></pre>
 
 <h4 id="원하는-필드만-보기">원하는 필드만 보기</h4>
 <ul>
-<li><code>ps -ef</code> 나 <code>ls -l</code> 등의 출력결과가 테이블 형태인 프로그램을 실행하고 원하는 필드만 정리해야할 경우가 자주 있다.</li>
-<li>필드간에는 WhiteSpace 즉, 공백이 채워져 있으므로, 공백을 기준으로 자른다.</li>
+<li class="fragment roll-in"><code>ps -ef</code> 나 <code>ls -l</code> 등의 출력결과가 테이블 형태인 프로그램을 실행하고 원하는 필드만 정리해야할 경우가 자주 있다.</li>
+<li class="fragment roll-in">필드간에는 WhiteSpace 즉, 공백이 채워져 있으므로, 공백을 기준으로 자른다.</li>
 </ul>
 </section>
 <section class="slide level2">
@@ -376,9 +376,9 @@ while( my $line = &lt;STDIN&gt; ){
     print &quot;$cols[0] $cols[1] $cols[2]\n&quot;;
 }</code></pre>
 <ul>
-<li>perl 에는 $scalar, <span class="citation" data-cites="array">@array</span>, %hash 의 3가지 기본 자료형이 있다.</li>
-<li><span class="math"><em>c</em><em>o</em><em>l</em><em>s</em>[0]</span>cols[1] <span class="math">$cols[2] ... 와 같이 @cols는 $</span>cols[인덱스] 의 형태로 사용한다.</li>
-<li>마지막 인덱스는 (<span class="citation" data-cites="cols-1">@cols-1</span>) 으로 얻을수 있다.</li>
+<li class="fragment roll-in">perl 에는 $scalar, <span class="citation" data-cites="array">@array</span>, %hash 의 3가지 기본 자료형이 있다.</li>
+<li class="fragment roll-in"><span class="math"><em>c</em><em>o</em><em>l</em><em>s</em>[0]</span>cols[1] <span class="math">$cols[2] ... 와 같이 @cols는 $</span>cols[인덱스] 의 형태로 사용한다.</li>
+<li class="fragment roll-in">마지막 인덱스는 (<span class="citation" data-cites="cols-1">@cols-1</span>) 으로 얻을수 있다.</li>
 </ul>
 </section>
 <section class="slide level2">
@@ -414,15 +414,15 @@ drwxr-xr-x 3 sng2c
 drwxr-xr-x 3 sng2c
 -rw-r--r--@ 1 sng2c</code></pre>
 <ul>
-<li>-ane 를 이용하면 각 줄을 <span class="citation" data-cites="F에">@F에</span> 공백을 기준으로 잘라서 담아둔다.</li>
+<li class="fragment roll-in">-ane 를 이용하면 각 줄을 <span class="citation" data-cites="F에">@F에</span> 공백을 기준으로 잘라서 담아둔다.</li>
 </ul>
 </section>
 <section class="slide level2">
 
 <h4 id="원하는-곳-색상넣기">원하는 곳 색상넣기</h4>
 <ul>
-<li>Perl의 Term::ANSIColor 모듈을 이용하여 컬러풀한 출력을 만들 수 있다. 가독성을 높여 생산성을 올릴 수 있다.</li>
-<li>참고 : http://perldoc.perl.org/5.8.8/Term/ANSIColor.html</li>
+<li class="fragment roll-in">Perl의 Term::ANSIColor 모듈을 이용하여 컬러풀한 출력을 만들 수 있다. 가독성을 높여 생산성을 올릴 수 있다.</li>
+<li class="fragment roll-in">참고 : <a href="http://perldoc.perl.org/5.8.8/Term/ANSIColor.html">http://perldoc.perl.org/5.8.8/Term/ANSIColor.html</a></li>
 </ul>
 </section>
 <section class="slide level2">
@@ -439,13 +439,13 @@ print color(&#39;red&#39;) . &quot;빨간색\n&quot; . color(&#39;reset&#39;);
 
 print color(&#39;blink blue&#39;) . &quot;파란색깜빡\n&quot; . color(&#39;reset&#39;);</code></pre>
 <ul>
-<li>원하는 색을 모두 표현하고 나면, color('reset') 으로 색을 초기화하도록 해야한다.</li>
-<li>color() 의 지정값
+<li class="fragment roll-in">원하는 색을 모두 표현하고 나면, color('reset') 으로 색을 초기화하도록 해야한다.</li>
+<li class="fragment roll-in">color() 의 지정값
 <ul>
-<li>초기화 : clear, reset</li>
-<li>스타일 : dark, bold, underline, underscore, blink, reverse, concealed</li>
-<li>글자색 : black, red, green, yellow, blue, magenta</li>
-<li>배경색 : on_black, on_red, on_green, on_yellow, on_blue, on_magenta, on_cyan, on_white</li>
+<li class="fragment roll-in">초기화 : clear, reset</li>
+<li class="fragment roll-in">스타일 : dark, bold, underline, underscore, blink, reverse, concealed</li>
+<li class="fragment roll-in">글자색 : black, red, green, yellow, blue, magenta</li>
+<li class="fragment roll-in">배경색 : on_black, on_red, on_green, on_yellow, on_blue, on_magenta, on_cyan, on_white</li>
 </ul></li>
 </ul>
 </section>
@@ -453,7 +453,7 @@ print color(&#39;blink blue&#39;) . &quot;파란색깜빡\n&quot; . color(&#39;r
 
 <h5 id="컬러로의-치환">컬러로의 치환</h5>
 <ul>
-<li>입력으로 들어온 값의 일부를 찾아서 컬러로 변경한다.</li>
+<li class="fragment roll-in">입력으로 들어온 값의 일부를 찾아서 컬러로 변경한다.</li>
 </ul>
 </section>
 <section class="slide level2">
@@ -472,17 +472,17 @@ while( my $line = &lt;STDIN&gt; ){
     print &quot;$line\n&quot;;
 }</code></pre>
 <ul>
-<li><span class="math">$line =~ s/패턴/대체문자열/g; : `$</span>line<code>에서</code>패턴<code>을 찾아</code>대체문자열<code>로</code>모두(g)<code>`바꿔침( =~ s/// )</code>.
+<li class="fragment roll-in"><span class="math">$line =~ s/패턴/대체문자열/g; : `$</span>line<code>에서</code>패턴<code>을 찾아</code>대체문자열<code>로</code>모두(g)<code>`바꿔침( =~ s/// )</code>.
 <ul>
-<li>패턴
+<li class="fragment roll-in">패턴
 <ul>
-<li>(+) : 숫자의 연속, 매칭 그룹</li>
+<li class="fragment roll-in">(+) : 숫자의 연속, 매칭 그룹</li>
 </ul></li>
-<li>대체문자열
+<li class="fragment roll-in">대체문자열
 <ul>
-<li>$bold</li>
-<li>$1 : 1번 매칭 그룹</li>
-<li>$reset</li>
+<li class="fragment roll-in">$bold</li>
+<li class="fragment roll-in">$1 : 1번 매칭 그룹</li>
+<li class="fragment roll-in">$reset</li>
 </ul></li>
 </ul></li>
 </ul>
@@ -531,10 +531,10 @@ die &quot;exec FAIL!!!&quot;;</code></pre>
 
 <h3 id="정리">정리</h3>
 <ul>
-<li>perl 버전의 확인</li>
-<li>Core 모듈들</li>
-<li>파이프의 사용</li>
-<li>입출력 가공하기</li>
+<li class="fragment roll-in">perl 버전의 확인</li>
+<li class="fragment roll-in">Core 모듈들</li>
+<li class="fragment roll-in">파이프의 사용</li>
+<li class="fragment roll-in">입출력 가공하기</li>
 </ul>
 </section>
 <section class="slide level2">
@@ -558,6 +558,8 @@ die &quot;exec FAIL!!!&quot;;</code></pre>
     progress: true,
     history: true,
     center: true,
+    slideNumber: true,
+    fragments: true,
  
   // available themes are in /css/theme
       theme: Reveal.getQueryHash().theme || 'default', 
