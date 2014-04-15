@@ -374,6 +374,7 @@ use strict;
 use lib './lib';
 use Config::Properties;
 use Data::Dumper;
+```
 
 * use lib './lib';
     * lib 디렉토리를 라이브러리 패스로 지정한다.
@@ -381,6 +382,7 @@ use Data::Dumper;
 
 ----
 
+```perl
 #read
 my $props = Config::Properties->new(file=>'props.properties');
 my %all = $props->properties; # 전체 
@@ -395,6 +397,7 @@ print $message."\n";
 * %all : 드디어 해시 자료형이 등장
 * print Dumper \%all; : Dumper(\%all) 과 같다. \를 변수앞에 붙이면 좀 더 구조화된 모양으로 보인다.
 * \를 변수 앞에 붙이면 해당 변수의 레퍼런스(주소)를 의미한다.
+
 ----
 
 ```perl
@@ -814,7 +817,7 @@ while(1){
 
 ----
 
-```
+```bash
 $ (perl my_timer.pl &)
 ```
 
@@ -831,7 +834,7 @@ $ (perl my_timer.pl &)
 
 New Screen
 
-```
+```bash
 sng2c_mbp:cron sng2c$ screen -R
 
 bash-3.2$ perl my_timer.pl
@@ -849,7 +852,7 @@ sng2c_mbp:cron sng2c$
 
 List Sessions
 
-```
+```bash
 sng2c_mbp:cron sng2c$ screen -list
 There are screens on:
     74853.ttys000.sng2c_mbp (Detached)
@@ -866,7 +869,7 @@ sng2c_mbp:cron sng2c$
 
 Attach and Exit Screen
 
-```
+```bash
 sng2c_mbp:cron sng2c$ screen -R 74853
 ...
 ^c
@@ -882,11 +885,19 @@ bash-3.2$ exit
 
 Run
 
+```bash
+$ screen -dmS NEW_NAME perl my_timer.pl
 ```
-$ screen -dmS NEW_NAME 'perl my_timer.pl';
+
+Quit
+
+```bash
+$ screen -S NEW_NAME -X quit
 ```
 
 * -dmS 를 이용하면, 바로 detached 상태로 들어가고, my_timer.pl이 종료되면 알아서 해당 스크린도 사라진다.
+* screen -R NEW_NAME 로 들어가서 ctrl+c 를 날리면 바로 세션이 종료된다.
+* 추가로 날리는 명령은 전체를 ''로 감싸면 작동하지 않는다.
 
 ----
 

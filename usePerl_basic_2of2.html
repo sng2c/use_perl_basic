@@ -377,15 +377,18 @@ my.test.message=Hello</code></pre>
 use strict;
 use lib &#39;./lib&#39;;
 use Config::Properties;
-use Data::Dumper;
+use Data::Dumper;</code></pre>
+<ul>
+<li class="fragment roll-in">use lib './lib';
+<ul>
+<li class="fragment roll-in">lib 디렉토리를 라이브러리 패스로 지정한다.</li>
+<li class="fragment roll-in">Config::Properties 모듈의 경로는 &quot;./lib/Config/Properties.pm&quot; 이다.</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2">
 
-* use lib &#39;./lib&#39;;
-    * lib 디렉토리를 라이브러리 패스로 지정한다.
-    * Config::Properties 모듈의 경로는 &quot;./lib/Config/Properties.pm&quot; 이다.
-
-----
-
-#read
+<pre class="perl"><code>#read
 my $props = Config::Properties-&gt;new(file=&gt;&#39;props.properties&#39;);
 my %all = $props-&gt;properties; # 전체 
 print Dumper \%all;
@@ -397,8 +400,11 @@ print $message.&quot;\n&quot;;</code></pre>
 <ul>
 <li class="fragment roll-in">%all : 드디어 해시 자료형이 등장</li>
 <li class="fragment roll-in">print Dumper %all; : Dumper(%all) 과 같다. 변수앞에 붙이면 좀 더 구조화된 모양으로 보인다.</li>
-<li class="fragment roll-in"><h2>변수 앞에 붙이면 해당 변수의 레퍼런스(주소)를 의미한다.</h2></li>
+<li class="fragment roll-in">변수 앞에 붙이면 해당 변수의 레퍼런스(주소)를 의미한다.</li>
 </ul>
+</section>
+<section class="slide level2">
+
 <pre class="perl"><code>#write
 my $props2 = Config::Properties-&gt;new();
 $props2-&gt;setProperty(&#39;my.test.nick&#39;, &#39;sng2c&#39;);
@@ -776,7 +782,7 @@ while(1){
 </section>
 <section class="slide level2">
 
-<pre><code>$ (perl my_timer.pl &amp;)</code></pre>
+<pre class="bash"><code>$ (perl my_timer.pl &amp;)</code></pre>
 <ul>
 <li class="fragment roll-in">위와 같이 하면 현재의 터미널 소유에서 벗어나서 백그라운드로 작동하게 된다.</li>
 </ul>
@@ -792,7 +798,7 @@ while(1){
 <section class="slide level2">
 
 <p>New Screen</p>
-<pre><code>sng2c_mbp:cron sng2c$ screen -R
+<pre class="bash"><code>sng2c_mbp:cron sng2c$ screen -R
 
 bash-3.2$ perl my_timer.pl
 ...
@@ -808,7 +814,7 @@ sng2c_mbp:cron sng2c$ </code></pre>
 <section class="slide level2">
 
 <p>List Sessions</p>
-<pre><code>sng2c_mbp:cron sng2c$ screen -list
+<pre class="bash"><code>sng2c_mbp:cron sng2c$ screen -list
 There are screens on:
     74853.ttys000.sng2c_mbp (Detached)
     78216.ttys000.sng2c_mbp (Detached)
@@ -823,7 +829,7 @@ sng2c_mbp:cron sng2c$ </code></pre>
 <section class="slide level2">
 
 <p>Attach and Exit Screen</p>
-<pre><code>sng2c_mbp:cron sng2c$ screen -R 74853
+<pre class="bash"><code>sng2c_mbp:cron sng2c$ screen -R 74853
 ...
 ^c
 bash-3.2$ exit
@@ -837,9 +843,13 @@ bash-3.2$ exit
 <section class="slide level2">
 
 <p>Run</p>
-<pre><code>$ screen -dmS NEW_NAME &#39;perl my_timer.pl&#39;;</code></pre>
+<pre class="bash"><code>$ screen -dmS NEW_NAME perl my_timer.pl</code></pre>
+<p>Quit</p>
+<pre class="bash"><code>$ screen -S NEW_NAME -X quit</code></pre>
 <ul>
 <li class="fragment roll-in">-dmS 를 이용하면, 바로 detached 상태로 들어가고, my_timer.pl이 종료되면 알아서 해당 스크린도 사라진다.</li>
+<li class="fragment roll-in">screen -R NEW_NAME 로 들어가서 ctrl+c 를 날리면 바로 세션이 종료된다.</li>
+<li class="fragment roll-in">추가로 날리는 명령은 전체를 ''로 감싸면 작동하지 않는다.</li>
 </ul>
 </section>
 <section class="slide level2">
