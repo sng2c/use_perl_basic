@@ -2,7 +2,7 @@
 
 use strict;
 
-
+$|++;
 my $tick=0;
 while(1){
 

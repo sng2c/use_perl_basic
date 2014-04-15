@@ -887,6 +887,8 @@ Run
 
 ```bash
 $ screen -dmS NEW_NAME perl my_timer.pl
+
+$ screen -dmS NEW_NAME /bin/sh -c "perl my_timer.pl > out.txt"
 ```
 
 Quit
@@ -897,7 +899,7 @@ $ screen -S NEW_NAME -X quit
 
 * -dmS 를 이용하면, 바로 detached 상태로 들어가고, my_timer.pl이 종료되면 알아서 해당 스크린도 사라진다.
 * screen -R NEW_NAME 로 들어가서 ctrl+c 를 날리면 바로 세션이 종료된다.
-* 추가로 날리는 명령은 전체를 ''로 감싸면 작동하지 않는다.
+* 출력의 리디렉션등 다소 복잡한 명령을 실행할 때에는 /bin/sh -c 를 이용하면 된다.
 
 ----
 
