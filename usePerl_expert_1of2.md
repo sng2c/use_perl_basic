@@ -83,38 +83,40 @@ $ perlbrew install-cpanm
 ###### 버전의 선택
 
 ```bash
-$ perlbrew available
-  perl-5.19.11
-  perl-5.18.2
-  perl-5.16.3
-  perl-5.14.4
-  perl-5.12.5
-  perl-5.10.1
+$ perlbrew available --all
+  perl-5.6.0
+  ...
+  perl-5.8.8
   perl-5.8.9
-  perl-5.6.2
-  perl5.005_04
-  perl5.004_05
-  perl5.003_07
-$
+  perl-5.9.0
+  perl-5.9.1
+  perl-5.9.2
+  perl-5.9.3
+  perl-5.9.4
+  perl-5.9.5
+  perl-5.10.0
+  perl-5.10.1
+  ...
 ```
 
-* 5.8.8에 맞추기로 했으니 가장 가까운 5.8.9로
+* 5.8.8에 맞추기로 했으니 5.8.8로
 
 ----
 
 ###### 설치 시작
 
 ```bash
-$ perlbrew install perl-5.8.9
+$ perlbrew --force install perl-5.8.8
 ...
 ```
+* OSX 에서는 locale 관련 test를 실패하더라도 무시하게 --force 추가
 
 ----
 
 다른 터미널을 열어서
 
 ```bash
-$ tail -f ~/perl5/perlbrew/build.perl-5.8.9.log
+$ tail -f ~/perl5/perlbrew/build.perl-5.8.8.log
 ```
 
 ----
@@ -123,7 +125,7 @@ $ tail -f ~/perl5/perlbrew/build.perl-5.8.9.log
 
 ```bash
 $ perlbrew list
-  perl-5.8.9
+  perl-5.8.8
 $
 ```
 
@@ -186,6 +188,18 @@ $ perlbrew switch perl-5.8.9
 
 ```bash
 $ perlbrew switch-off
+```
+
+----
+
+##### 요약
+
+```bash
+$ curl -L http://install.perlbrew.pl | bash
+$ cat 'source ~/perl5/perlbrew/etc/bashrc' >> ~/.bash_profile
+$ source ~/perl5/perlbrew/etc/bashrc
+$ perlbrew install-cpanm
+$ perlbrew install perl-5.8.8
 ```
 
 ----
