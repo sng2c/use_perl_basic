@@ -7,8 +7,6 @@ my $fh = file_read "/Users/sng2c/sudo_password";
 sudo_password $fh->read_all;
 $fh->close;
 
-logging to_file => "rex.log";
-
 group myserver => "mabook.com";
 
 desc "Get the uptime of all server";
