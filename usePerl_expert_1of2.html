@@ -114,39 +114,43 @@ $</code></pre>
 
 <h5 id="perl의-설치">perl의 설치</h5>
 <h6 id="버전의-선택">버전의 선택</h6>
-<pre class="bash"><code class="fragment roll-in">$ perlbrew available
-  perl-5.19.11
-  perl-5.18.2
-  perl-5.16.3
-  perl-5.14.4
-  perl-5.12.5
-  perl-5.10.1
+<pre class="bash"><code class="fragment roll-in">$ perlbrew available --all
+  perl-5.6.0
+  ...
+  perl-5.8.8
   perl-5.8.9
-  perl-5.6.2
-  perl5.005_04
-  perl5.004_05
-  perl5.003_07
-$</code></pre>
+  perl-5.9.0
+  perl-5.9.1
+  perl-5.9.2
+  perl-5.9.3
+  perl-5.9.4
+  perl-5.9.5
+  perl-5.10.0
+  perl-5.10.1
+  ...</code></pre>
 <ul>
-<li class="fragment roll-in">5.8.8에 맞추기로 했으니 가장 가까운 5.8.9로</li>
+<li class="fragment roll-in">5.8.8에 맞추기로 했으니 5.8.8로</li>
 </ul>
 </section>
 <section class="slide level2">
 
 <h6 id="설치-시작">설치 시작</h6>
-<pre class="bash"><code class="fragment roll-in">$ perlbrew install perl-5.8.9
+<pre class="bash"><code class="fragment roll-in">$ perlbrew --force install perl-5.8.8
 ...</code></pre>
+<ul>
+<li class="fragment roll-in">OSX 에서는 locale 관련 test를 실패하더라도 무시하게 --force 추가</li>
+</ul>
 </section>
 <section class="slide level2">
 
 <p>다른 터미널을 열어서</p>
-<pre class="bash"><code class="fragment roll-in">$ tail -f ~/perl5/perlbrew/build.perl-5.8.9.log</code></pre>
+<pre class="bash"><code class="fragment roll-in">$ tail -f ~/perl5/perlbrew/build.perl-5.8.8.log</code></pre>
 </section>
 <section class="slide level2">
 
 <h6 id="설치된-버전의-목록">설치된 버전의 목록</h6>
 <pre class="bash"><code class="fragment roll-in">$ perlbrew list
-  perl-5.8.9
+  perl-5.8.8
 $</code></pre>
 </section>
 <section class="slide level2">
@@ -191,6 +195,15 @@ $ perlbrew exec --with perl-5.8.9 perl -e &#39;print &quot;Hello from $]\n&quot;
 <pre class="bash"><code class="fragment roll-in">$ perlbrew switch perl-5.8.9</code></pre>
 <h6 id="사용-취소">사용 취소</h6>
 <pre class="bash"><code class="fragment roll-in">$ perlbrew switch-off</code></pre>
+</section>
+<section class="slide level2">
+
+<h5 id="요약">요약</h5>
+<pre class="bash"><code class="fragment roll-in">$ curl -L http://install.perlbrew.pl | bash
+$ cat &#39;source ~/perl5/perlbrew/etc/bashrc&#39; &gt;&gt; ~/.bash_profile
+$ source ~/perl5/perlbrew/etc/bashrc
+$ perlbrew install-cpanm
+$ perlbrew install perl-5.8.8</code></pre>
 </section>
 <section class="slide level2">
 

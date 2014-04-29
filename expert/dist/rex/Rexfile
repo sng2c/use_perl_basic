@@ -1,0 +1,32 @@
+user "sng2c";
+private_key "/Users/sng2c/.ssh/id_rsa"; # passphrase-less key
+public_key "/Users/sng2c/.ssh/id_rsa.pub";
+key_auth;
+
+my $fh = file_read "/Users/sng2c/sudo_password";
+sudo_password $fh->read_all;
+$fh->close;
+
+logging to_file => "rex.log";
+
+group myserver => "mabook.com";
+
+desc "Get the uptime of all server";
+task "uptime", group => "myserver", sub {
+	my $output = run "uptime";
+	say $output;
+};
+
+desc "Install Redis Server";
+task "setup_redis", group => "myserver", sub{
+	sudo sub{
+		install package=>'redis-server';
+	};
+};
+
+desc "Remove Redis Server";
+task "remove_redis", group => "myserver", sub{
+	sudo sub{
+		remove package=>'redis-server';
+	};
+};
