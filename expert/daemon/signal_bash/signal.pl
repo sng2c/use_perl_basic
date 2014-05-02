@@ -1,8 +1,6 @@
 #!/usr/bin/env perl 
 
 my $until = 1;
-
-
 my $count = 0;
 
 $SIG{INT} = sub{print "INT\n"; $until = 0; };

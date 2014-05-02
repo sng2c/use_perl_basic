@@ -875,6 +875,12 @@ $ rex setup_redis
 
 ---
 
+##### perl 원격 설치 자동화
+
+* [http://digit.daumcorp.com/sng2nara/RexSetupPerl](http://digit.daumcorp.com/sng2nara/RexSetupPerl)
+
+---
+
 #### Q & A
 
 ---

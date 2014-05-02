@@ -1,12 +1,8 @@
 #!/usr/bin/env perl 
 
 use AnyEvent;
-
 my $cv = AE::cv;
-
-my $until = 1;
 my $count = 0;
-
 my $w1 = AE::signal INT=>sub{print "INT\n"; $cv->send; };
 my $w2 = AE::signal TERM=> sub{print "TERM\n"; $cv->send; };
 my $w3 = AE::signal USR1=> sub{print "USR1 : Hello World!\n"; };

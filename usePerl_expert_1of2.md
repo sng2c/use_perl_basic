@@ -216,74 +216,18 @@ $ perlbrew install perl-5.8.8
 
 ### 서버환경을 로컬에 맞추기
 
-* 로컬이 5.16.2 일때
-* 서버도 5.16.x 버전으로 변경
+* 로컬이 5.18.2 일때
+* 서버도 5.18.x 버전으로 변경
 
 ----
 
-#### perlbrew의 설치
+### Rex를 활용한 Perl 5.18.2 설치 
 
-```bash
-$ export PERLBREW_ROOT=/daum/program/perl5
-$ curl -L http://install.perlbrew.pl | bash
-```
-
-* perlbrew의 root 디렉토리를 /daum/program/perl5 로 지정
-
-
-----
-
-
-```bash
-echo 'source /daum/program/perl5/perlbrew/etc/bashrc' >> ~/.bash_profile
-```
-
-* .bash_profile에 추가
-
-
-----
-
-
-```bash
-$ perlbrew install-cpanm
-```
-
-* cpanm 설치 
-
-
-----
-
-
-#### perl 설치
-
-```bash
-$ perlbrew install perl-5.18.2
-...
-$ perlbrew switch perl-5.18.2 
-```
-
-----
-
-#### perl 설치본 복사
-
-```bash
-$ tar czvf perl5.tar.gz /daum/program/perl5
-
-...
-
-$ cp perl5.tar.gz /daum/program
-$ tar xzvf /daum/program/perl5.tar.gz
-```
-
-* /daum/program/perl5 를 통채로 압축하여 배포
-
-----
-
-```bash
-$ echo 'source /daum/program/perl5/perlbrew/etc/bashrc' >> ~/.bash_profile
-```
-
-* ~/.bash_profile 에 source 추가
+* [http://digit.daumcorp.com/sng2nara/RexSetupPerl](http://digit.daumcorp.com/sng2nara/RexSetupPerl)
+* 위의 절차를 따라 서버별로 자동 설치할 수 있다.
+* http://ftp.daum.net/CPAN 을 이용하므로 방화벽 설정을 바꿀 필요가 없다.
+* cpanm 이나 cpan을 모두 사용가능.
+* Rex에 대해서는 심화 2/2 참고
 
 ----
 
